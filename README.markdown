@@ -38,6 +38,9 @@ Synopsis
                     --- proxy = "http://127.0.0.1:8888",
                     --- timeout = 3000,
                     --- headers = { UserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11"}
+                    method = "POST",
+                    headers = { Cookie = "ABCDEFG", ["Content-Type"] = "application/x-www-form-urlencoded" },
+                    body = "uid=1234567890",
                 }
 
                 ngx.say(ok)
