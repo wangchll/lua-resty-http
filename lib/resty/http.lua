@@ -219,13 +219,18 @@ function request(self, reqt)
     for i, v in pairs(nreqt.headers) do
         h = i .. ": " .. v .. "\r\n" .. h
     end
+    
+    -- send body
+    if nreqt.method == 'POST' then
+        h = "Content-Length: " .. #nreqt.body .. "\r\n" .. h
+        h = h .. nreqt.body
+    end
+    
     bytes, err = sock:send(reqline .. h)
     if not bytes then
         sock:close()
         return nil, err
     end
-
-    -- TODO send body
 
     -- receive status line
     code, status = receivestatusline(sock)
