@@ -217,11 +217,15 @@ function request(self, reqt)
 
     local h = "\r\n"
     for i, v in pairs(nreqt.headers) do
+        -- fix cookie is a table value
+        if type(v) == "table" and i == "cookie" then
+            v = table.concat(v, "; ")
+        end
         h = i .. ": " .. v .. "\r\n" .. h
     end
     
     -- send body
-    if nreqt.method == 'POST' then
+    if nreqt.method == 'POST' and nreqt.body then
         h = "Content-Length: " .. #nreqt.body .. "\r\n" .. h
         h = h .. nreqt.body
     end
