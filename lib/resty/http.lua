@@ -149,7 +149,7 @@ local function receivebody(sock, headers)
     if t and t ~= "identity" then
         -- chunked
         return receivechunkedbody(sock)
-    elseif headers["content-length"] ~= nil then
+    elseif headers["content-length"] ~= nil and headers["content-length"] ~= "0" then
         -- content length
         local length = tonumber(headers["content-length"])
         return sock:receive(length);
